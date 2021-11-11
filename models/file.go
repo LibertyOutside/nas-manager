@@ -1,9 +1,9 @@
 package models
 
 type File struct {
-	Name  string
-	Dir   string
-	IsDir bool
-	Files []File
-	Path  string
+	Name  string `json:"name"`
+	Dir   string `json:"dir"`
+	IsDir bool   `json:"is_dir"`
+	Files []File `json:"files"`
+	Path  string `json:"path"`
 }
