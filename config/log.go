@@ -65,8 +65,7 @@ func logLevelStr(entry *logrus.Entry) string {
 	}
 	return color + level + colorNormal
 }
-
-func init() {
+func InitLogger() {
 	logrus.SetLevel(logrus.TraceLevel)
 	logrus.SetReportCaller(true)
 	logrus.SetFormatter(&AssistantFormatter{})

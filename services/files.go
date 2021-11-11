@@ -1,20 +1,24 @@
 package services
 
 import (
-	log "github.com/sirupsen/logrus"
-	"io/fs"
 	"io/ioutil"
+	"nas-manager/models"
 )
 
-func ShowFiles(path string) (files []fs.FileInfo, err error) {
+func ShowFiles(path string) (files []models.File, err error) {
 	rd, err := ioutil.ReadDir(path)
+
+	var result []models.File
 	for _, fi := range rd {
+		f := models.File{Name: fi.Name(), IsDir: fi.IsDir(), Dir: path, Path: path + "/" + fi.Name()}
 		if fi.IsDir() {
-			log.Infof("%#v", fi)
+			ffi, _ := ShowFiles(path + "/" + fi.Name())
+			f.Files = append(f.Files, ffi...)
 		} else {
 
 		}
+		result = append(result, f)
 	}
 
-	return rd, nil
+	return result, nil
 }

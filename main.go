@@ -3,10 +3,12 @@ package main
 import (
 	"github.com/gin-gonic/gin"
 	log "github.com/sirupsen/logrus"
+	"nas-manager/config"
 	"nas-manager/routes"
 )
 
 func main() {
+	config.InitLogger()
 
 	app := gin.Default()
 	nasGroup := app.Group("/nas")
