@@ -20,5 +20,5 @@ func ShowFiles(path string) (files []models.File, err error) {
 		result = append(result, f)
 	}
 
-	return result, nil
+	return result, err
 }
