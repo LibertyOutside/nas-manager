@@ -1,4 +1,4 @@
-package config
+package settings
 
 import (
 	"bytes"
@@ -35,13 +35,22 @@ func (f AssistantFormatter) Format(entry *logrus.Entry) ([]byte, error) {
 	if entry.HasCaller() {
 		fName := filepath.Base(entry.Caller.File)
 		newLog = fmt.Sprintf("[%s] [%s] %s%s%s [%s:%d %s]\n",
-			timestamp, logLevel, colorCyan, entry.Message, colorNormal,
+			timestamp, logLevel, colorCyan, msgWithFields(entry), colorNormal,
 			fName, entry.Caller.Line, entry.Caller.Function)
 	} else {
 		newLog = fmt.Sprintf("[%s] %s[%s]%s %s\n", timestamp, colorGreen, entry.Level, colorNormal, entry.Message)
 	}
 	b.WriteString(newLog)
 	return b.Bytes(), nil
+}
+
+func msgWithFields(entry *logrus.Entry) string {
+	var s string
+	for key := range entry.Data {
+		s += key + ":" + entry.Data[key].(string) + " "
+	}
+	s += entry.Message
+	return s
 }
 
 func logLevelStr(entry *logrus.Entry) string {
@@ -65,6 +74,7 @@ func logLevelStr(entry *logrus.Entry) string {
 	}
 	return color + level + colorNormal
 }
+
 func InitLogger() {
 	logrus.SetLevel(logrus.TraceLevel)
 	logrus.SetReportCaller(true)

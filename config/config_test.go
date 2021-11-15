@@ -1,18 +1,18 @@
 package config
 
 import (
-	"log"
+	"fmt"
+	"gopkg.in/yaml.v2"
+	"nas-manager/settings"
 	"testing"
 )
 
-func TestConfigs_Init(t *testing.T) {
-	c := Configs{
-		Path: "../conf/conf-dev1.yaml",
-	}
-
-	if err := c.Init(); err != nil {
-		log.Printf("config read error!")
+func TestGetFile(t *testing.T) {
+	f := GetFile()
+	var c settings.AppConfig
+	err := yaml.Unmarshal(f, &c)
+	if err != nil {
 		t.Fail()
 	}
-	log.Printf("appconf:%#v", c.AppConfig)
+	fmt.Printf("%#v", c)
 }
