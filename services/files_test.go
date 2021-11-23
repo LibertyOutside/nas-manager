@@ -15,3 +15,10 @@ func TestShowFiles(t *testing.T) {
 		}
 	}
 }
+
+func TestProcessFile(t *testing.T) {
+	err := Purify("/home/kylin/下载")
+	if err != nil {
+		t.Fail()
+	}
+}
