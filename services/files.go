@@ -4,6 +4,7 @@ import (
 	log "github.com/sirupsen/logrus"
 	"io/ioutil"
 	"nas-manager/models"
+	"os"
 	"path/filepath"
 	"strings"
 )
@@ -33,7 +34,10 @@ func Purify(path string) error {
 	}
 	for _, file := range files {
 		if !file.IsDir {
-			ProcessFile(file)
+			err := ProcessFile(file)
+			if err != nil {
+				return err
+			}
 		}
 	}
 	return nil
@@ -44,16 +48,25 @@ func suffix(filename string) string {
 	return s[len(s)-1]
 }
 
-func ProcessFile(file models.File) {
+func ProcessFile(file models.File) error {
 	deleteSuffix := "jpg,png,txt,jpeg,gif,html,exe"
 	d := strings.Split(deleteSuffix, ",")
 	for _, sfx := range d {
 		if suffix(file.Name) == sfx {
 			log.Infof("not video,deleted: %s", file.Name)
+			err := os.Remove(file.Path)
+			if err != nil {
+				return err
+			}
 			break
 		}
 	}
 	if file.Size < 100*1024*1024 {
 		log.Infof("file size small ,deleted:%s, size:%f", file.Name, float64(file.Size)/float64(1024*1024))
+		err := os.Remove(file.Path)
+		if err != nil {
+			return err
+		}
 	}
+	return nil
 }
