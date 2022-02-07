@@ -3,6 +3,7 @@ package main
 import (
 	"github.com/gin-gonic/gin"
 	log "github.com/sirupsen/logrus"
+	"nas-manager/db"
 	"nas-manager/routes"
 	"nas-manager/settings"
 	"net/http"
@@ -11,6 +12,7 @@ import (
 func main() {
 	settings.InitLogger()
 
+	db.CreateDatabase()
 	app := gin.Default()
 	app.Use(Cors())
 	nasGroup := app.Group("/nas")
