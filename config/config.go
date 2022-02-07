@@ -9,16 +9,23 @@ import (
 //go:embed *.yaml
 var fs embed.FS
 
+const (
+	AppEnv    = "NM_ENV"
+	AppEnvDev = "dev"
+)
+
+// GetFile 开发环境需要设置环境变量，没有设置就识别为生产环境
 func GetFile() []byte {
-	env := os.Getenv("PROJECT_ENV")
+	env := os.Getenv(AppEnv)
 	var f string
 
-	if env == "" {
-		log.Info("env:prod")
-		f = "application.yaml"
-	} else {
-		log.Infof("env:%s", env)
+	if env == AppEnvDev {
+
+		log.Info("app env: dev")
 		f = "application-" + env + ".yaml"
+	} else {
+		log.Info("app env: prod")
+		f = "application.yaml"
 	}
 
 	config, _ := fs.ReadFile(f)

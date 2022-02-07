@@ -11,16 +11,22 @@ import (
 
 func main() {
 	settings.InitLogger()
+	settings.InitSettings()
 
 	db.CreateDatabase()
 	app := gin.Default()
+
+	if settings.App.Debug == false {
+		gin.SetMode(gin.ReleaseMode)
+	}
+
 	app.Use(Cors())
 	nasGroup := app.Group("/nas")
 	nasGroup.GET("/files", routes.ShowFiles)
 
-	if err := app.Run(); err != nil {
+	if err := app.Run(settings.App.Port); err != nil {
 		log.Fatalf("web service start failed: %v", err)
-	} // 监听并在 0.0.0.0:8080 上启动服务
+	}
 
 }
 

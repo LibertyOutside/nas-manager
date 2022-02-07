@@ -7,16 +7,10 @@ import (
 )
 
 type AppConfig struct {
-	Mysql     MysqlStruct
-	WhiteList []string
-}
-
-type MysqlStruct struct {
-	User   string
-	Passwd string
-	Host   string
-	Port   int
-	Db     string
+	Debug      bool   `yaml:"debug"`
+	Loglevel   string `yaml:"loglevel"`
+	Port       string `yaml:"port"`
+	SqlitePath string `yaml:"sqlite_path"`
 }
 
 var App AppConfig
@@ -24,6 +18,6 @@ var App AppConfig
 func InitSettings() {
 	err := yaml.Unmarshal(config.GetFile(), &App)
 	if err != nil {
-		log.Fatalf("config init failed！ cause: %v", err)
+		log.Fatalf("failed to read project configuration! because of: %v", err)
 	}
 }

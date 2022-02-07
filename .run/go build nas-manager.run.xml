@@ -2,6 +2,9 @@
   <configuration default="false" name="go build nas-manager" type="GoApplicationRunConfiguration" factoryName="Go Application" nameIsGenerated="true">
     <module name="nas-manager" />
     <working_directory value="$PROJECT_DIR$/build" />
+    <envs>
+      <env name="NM_ENV" value="dev" />
+    </envs>
     <kind value="PACKAGE" />
     <package value="nas-manager" />
     <directory value="$PROJECT_DIR$" />
