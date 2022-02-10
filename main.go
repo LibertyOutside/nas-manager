@@ -3,13 +3,17 @@ package main
 import (
 	"github.com/gin-gonic/gin"
 	log "github.com/sirupsen/logrus"
+	"nas-manager/api"
 	"nas-manager/db"
-	"nas-manager/routes"
+	"nas-manager/models"
+	"nas-manager/services/download"
 	"nas-manager/settings"
 	"net/http"
 )
 
 func main() {
+	//todo:move to init
+
 	settings.InitLogger()
 	settings.InitSettings()
 
@@ -19,10 +23,19 @@ func main() {
 	if settings.App.Debug == false {
 		gin.SetMode(gin.ReleaseMode)
 	}
+	transmissionInfo := models.TransmissionInfo{
+		Host:     "192.168.1.12",
+		User:     "",
+		Password: "",
+		Conf:     nil,
+	}
+	_ = download.InitTransmissionClient(transmissionInfo)
 
 	app.Use(Cors())
 	nasGroup := app.Group("/nas")
-	nasGroup.GET("/files", routes.ShowFiles)
+	nasGroup.GET("/files", api.ShowFiles)
+	downloadGroup := app.Group("/downloads")
+	downloadGroup.GET("/torrents", api.TrGetTorrents)
 
 	if err := app.Run(settings.App.Port); err != nil {
 		log.Fatalf("web service start failed: %v", err)
@@ -30,6 +43,7 @@ func main() {
 
 }
 
+// Cors 跨域
 func Cors() gin.HandlerFunc {
 	return func(c *gin.Context) {
 		method := c.Request.Method
