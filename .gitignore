@@ -2,3 +2,4 @@
 /build/
 /nasmanager.db
 /config/application-*.yaml
+/identifier.sqlite

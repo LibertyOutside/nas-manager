@@ -18,6 +18,12 @@ var App AppConfig
 func InitSettings() {
 	err := yaml.Unmarshal(config.GetFile(), &App)
 	if err != nil {
-		log.Fatalf("failed to read project configuration! because of: %v", err)
+		log.Fatalf("failed to read project settings! because of: %v", err)
 	}
+	log.Infoln("Project Settings Init Successfully")
+}
+
+func init() {
+	InitSettings()
+
 }

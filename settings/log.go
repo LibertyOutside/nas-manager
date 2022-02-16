@@ -79,4 +79,9 @@ func InitLogger() {
 	logrus.SetLevel(logrus.TraceLevel)
 	logrus.SetReportCaller(true)
 	logrus.SetFormatter(&AssistantFormatter{})
+	logrus.Infoln("Logger Has Been Init")
+}
+
+func init() {
+	InitLogger()
 }

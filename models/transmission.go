@@ -1,12 +1,29 @@
 package models
 
-import "github.com/hekmon/transmissionrpc/v2"
+import (
+	"github.com/hekmon/transmissionrpc/v2"
+	"gorm.io/gorm"
+	"time"
+)
 
 type TransmissionInfo struct {
 	Host     string                          `json:"host"`
 	User     string                          `json:"user"`
 	Password string                          `json:"password"`
 	Conf     *transmissionrpc.AdvancedConfig `json:"conf"`
+}
+
+type TransmissionClient struct {
+	gorm.Model
+	Host        string
+	Username    string
+	Password    string
+	Https       bool
+	Port        uint16
+	RpcUri      string
+	HttpTimeout time.Duration
+	UserAgent   string
+	Debug       bool
 }
 
 type Torrent struct {

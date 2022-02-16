@@ -14,8 +14,8 @@ import (
 func main() {
 	//todo:move to init
 
-	settings.InitLogger()
-	settings.InitSettings()
+	//settings.InitLogger()
+	//settings.InitSettings()
 
 	db.CreateDatabase()
 	app := gin.Default()
