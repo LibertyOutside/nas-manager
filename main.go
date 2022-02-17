@@ -4,7 +4,6 @@ import (
 	"github.com/gin-gonic/gin"
 	log "github.com/sirupsen/logrus"
 	"nas-manager/api"
-	"nas-manager/db"
 	"nas-manager/settings"
 	"net/http"
 )
@@ -15,7 +14,7 @@ func main() {
 	//settings.InitLogger()
 	//settings.InitSettings()
 
-	db.CreateDatabase()
+	//db.CreateDatabase()
 	app := gin.Default()
 
 	if settings.App.Debug == false {

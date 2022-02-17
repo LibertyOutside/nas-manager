@@ -25,7 +25,7 @@ type TransmissionClient struct {
 	HttpTimeout time.Duration
 	UserAgent   string
 	Debug       bool
-	Instance    *transmissionrpc.Client `sql:"-" json:"-"`
+	Instance    *transmissionrpc.Client `gorm:"-" json:"-"`
 }
 
 type Torrent struct {

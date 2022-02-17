@@ -32,3 +32,7 @@ func AddDefaultValue() {
 	// transmission client
 	DB.FirstOrCreate(&models.TransmissionClient{Alias: "default", Host: "127.0.0.1"})
 }
+
+func init() {
+	CreateDatabase()
+}

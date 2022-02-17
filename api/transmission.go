@@ -5,7 +5,7 @@ import (
 	"nas-manager/services/download"
 )
 
-// TrGetTorrents todo:统一错误处理
+// TrGetTorrents todo:统一错误处理,查询过慢优化
 func TrGetTorrents(c *gin.Context) {
 	torrents, err := download.GetTrTorrents()
 	if err != nil {
