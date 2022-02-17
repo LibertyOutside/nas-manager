@@ -16,6 +16,7 @@ func CreateDatabase() {
 	}
 	DB = db
 	Tables()
+	AddDefaultValue()
 }
 
 func Tables() {
@@ -24,4 +25,10 @@ func Tables() {
 	if err != nil {
 		log.Errorf("AutoMigrate Failed!")
 	}
+
+}
+
+func AddDefaultValue() {
+	// transmission client
+	DB.FirstOrCreate(&models.TransmissionClient{Alias: "default", Host: "127.0.0.1"})
 }

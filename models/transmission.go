@@ -15,6 +15,7 @@ type TransmissionInfo struct {
 
 type TransmissionClient struct {
 	gorm.Model
+	Alias       string //别名
 	Host        string
 	Username    string
 	Password    string
@@ -24,6 +25,7 @@ type TransmissionClient struct {
 	HttpTimeout time.Duration
 	UserAgent   string
 	Debug       bool
+	Instance    *transmissionrpc.Client `sql:"-" json:"-"`
 }
 
 type Torrent struct {
