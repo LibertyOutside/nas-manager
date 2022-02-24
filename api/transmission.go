@@ -2,18 +2,20 @@ package api
 
 import (
 	"github.com/gin-gonic/gin"
+	"nas-manager/models"
 	"nas-manager/services/download"
 )
 
-// TrGetTorrents todo:统一错误处理,查询过慢优化
+// TrGetTorrents todo:查询过慢优化
 func TrGetTorrents(c *gin.Context) {
+	result := models.NewResult(c)
 	torrents, err := download.GetTrTorrents()
 	if err != nil {
-		c.JSON(200, err)
+		result.Error(200, "Cannot get torrents!")
 	}
-	c.JSON(200, torrents)
+	result.Success(torrents)
 }
 
 func GetTransmissionClients(c *gin.Context) {
-	c.JSON(200, download.TrClient)
+	models.NewResult(c).Success(download.TrClient)
 }
