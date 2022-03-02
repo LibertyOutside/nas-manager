@@ -14,9 +14,9 @@ func main() {
 	if settings.App.Debug == false {
 		gin.SetMode(gin.ReleaseMode)
 	}
+	app.Use(routes.Cors())
 
 	routes.SetRoutes(app)
-	app.Use(routes.Cors())
 
 	if err := app.Run(settings.App.Port); err != nil {
 		log.Fatalf("web service start failed: %v", err)

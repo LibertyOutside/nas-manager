@@ -31,11 +31,11 @@ type TransmissionClient struct {
 type Torrent struct {
 	ID          int64  `json:"id"`
 	Name        string `json:"name"`
-	TorrentSize string `json:"torrent_size"`
+	TorrentSize uint64 `json:"torrent_size"`
 	DownloadDir string `json:"download_dir"`
-	IsFinished  bool   `json:"is_finished"`
-	IsStalled   bool   `json:"is_stalled"` //是否暂停
+	Status      string `json:"status"`
 	//Peers *transmissionrpc.Peer `json:"peers"` //todo:peers
-	RateDownload int64 `json:"rate_download"`
-	RateUpload   int64 `json:"rate_upload"`
+	RateDownload int64  `json:"rate_download"`
+	RateUpload   int64  `json:"rate_upload"`
+	MagicLink    string `json:"magic_link"`
 }

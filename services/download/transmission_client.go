@@ -32,7 +32,7 @@ func InitTransmissionClient() error {
 	return nil
 }
 
-func GetTrTorrents() ([]transmissionrpc.Torrent, error) {
+func GetTrTorrents() ([]models.Torrent, error) {
 	var torrents []transmissionrpc.Torrent
 	for _, client := range TrClient {
 		clientTorrents, err := client.Instance.TorrentGetAll(context.TODO())
@@ -41,7 +41,24 @@ func GetTrTorrents() ([]transmissionrpc.Torrent, error) {
 		}
 		torrents = append(torrents, clientTorrents...)
 	}
-	return torrents, nil
+	return transferTorrentEntity(torrents), nil
+}
+
+func transferTorrentEntity(tOrigins []transmissionrpc.Torrent) []models.Torrent {
+	var result []models.Torrent
+	for _, t := range tOrigins {
+		result = append(result, models.Torrent{
+			ID:           *t.ID,
+			Name:         *t.Name,
+			TorrentSize:  uint64(*t.TotalSize),
+			DownloadDir:  *t.DownloadDir,
+			Status:       t.Status.String(),
+			RateDownload: *t.RateDownload,
+			RateUpload:   *t.RateUpload,
+			MagicLink:    *t.MagnetLink,
+		})
+	}
+	return result
 }
 
 func init() {
