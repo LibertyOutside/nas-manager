@@ -31,3 +31,8 @@ func GetFile() []byte {
 	config, _ := fs.ReadFile(f)
 	return config
 }
+
+// DevMode 判断是否开发环境
+func DevMode() bool {
+	return os.Getenv(AppEnv) == AppEnvDev
+}

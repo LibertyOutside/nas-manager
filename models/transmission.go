@@ -6,6 +6,8 @@ import (
 	"time"
 )
 
+//see transmission rpc doc here: https://github.com/transmission/transmission/blob/main/docs/rpc-spec.md
+
 type TransmissionInfo struct {
 	Host     string                          `json:"host"`
 	User     string                          `json:"user"`
@@ -38,4 +40,5 @@ type Torrent struct {
 	RateDownload int64  `json:"rate_download"`
 	RateUpload   int64  `json:"rate_upload"`
 	MagicLink    string `json:"magic_link"`
+	LeftTime     int64  `json:"left_time"`
 }

@@ -56,6 +56,7 @@ func transferTorrentEntity(tOrigins []transmissionrpc.Torrent) []models.Torrent 
 			RateDownload: *t.RateDownload,
 			RateUpload:   *t.RateUpload,
 			MagicLink:    *t.MagnetLink,
+			LeftTime:     *t.LeftUntilDone,
 		})
 	}
 	return result
