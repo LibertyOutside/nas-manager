@@ -1,4 +1,4 @@
-package settings
+package config
 
 import (
 	"log"
@@ -6,8 +6,6 @@ import (
 )
 
 func TestConfigs_Init(t *testing.T) {
-
-	InitSettings()
 
 	log.Printf("appconf:%#v", App)
 }

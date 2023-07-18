@@ -1,4 +1,0 @@
-debug: false
-loglevel: info
-port: :9001
-sqlite_path: ./nasmanager.db

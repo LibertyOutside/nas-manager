@@ -1,4 +1,4 @@
-package settings
+package config
 
 import (
 	"testing"
@@ -6,5 +6,4 @@ import (
 
 func TestAssistantFormatter_Format(t *testing.T) {
 	InitLogger()
-	InitSettings()
 }

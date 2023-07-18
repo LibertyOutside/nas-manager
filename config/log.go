@@ -1,4 +1,4 @@
-package settings
+package config
 
 import (
 	"bytes"
@@ -7,7 +7,7 @@ import (
 	"path/filepath"
 )
 
-//logging font color
+// logging font color
 const (
 	colorNormal = "\x1b[0m"  //默认
 	colorRed    = "\x1b[31m" //红
